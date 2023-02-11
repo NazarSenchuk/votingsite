@@ -5,9 +5,13 @@
   <div class="card-body">
     <h1>Welcome To Pollster</h1>
     <p>This is an example Django polling app</p>
-    <a class="btn btn-dark" href="{% url 'polls:index' %}">
+    <form action="" method="POST">
+      <input type="text" name="username">
+      {% csrf_token %}
+    <button class="btn btn-dark" type="submit">
         View Available Polls</a
-      >
+      </button>
+    </form>
   </div>
   </div>
 {% endblock %}

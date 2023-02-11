@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Question, Choice
+from .models import Question, Choice,MyUser ,VotesMember
 
 admin.site.site_header = "Pollster Admin"
 admin.site.site_title = "Pollster Admin Area"
@@ -16,8 +16,8 @@ class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [(None, {'fields': ['question_text']}),
                  ('Date Information', {'fields': ['pub_date'], 'classes': ['collapse']}), ]
     inlines = [ChoiceInline]
-
-
+admin.site.register(VotesMember)
+admin.site.register(MyUser)
 # admin.site.register(Question)
-# admin.site.register(Choice)
+admin.site.register(Choice)
 admin.site.register(Question, QuestionAdmin)
