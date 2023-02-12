@@ -1,9 +1,9 @@
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect , JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render,redirect
 from django.urls import reverse
 from . import forms
-from .models import Question, VotesMember,Choice
+from .models import Question, VotesMember,Choice,Comments
 
 # Get questions and display them
 def index(request):
@@ -19,7 +19,8 @@ def detail(request, question_id):
     question = Question.objects.get(pk=question_id)
   except Question.DoesNotExist:
     raise Http404("Question does not exist")
-  return render(request, 'polls/detail.html', { 'question': question })
+  comment = Comments.objects.filter(question = question)
+  return render(request, 'polls/detail.html', { 'question': question , 'comments':comment})
 
 # Get question and display results
 def results(request, question_id):
@@ -65,4 +66,10 @@ def create_question(request):
         if form.is_valid :
             form.save()
     return redirect('polls:index')
-     
+def add_comment(request, pk):
+ if request.method == "POST":
+    user = request.user
+    text=  request.POST.get('comment_text')
+    question = Question.objects.get(id = pk)
+    Comments.objects.create(text = text,user=user,question=question)
+    return redirect(request.META.get('HTTP_REFERER'))

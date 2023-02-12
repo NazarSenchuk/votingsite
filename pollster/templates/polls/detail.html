@@ -26,4 +26,48 @@
 	{% endfor %}
 	<input type="submit" value="Vote" class="btn btn-success btn-lg btn-block mt-4" />
 </form>
+<h2>Comments</h2>
+
+<div class ="card">
+<a  type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Create comment</a>
+{% for comment in  comments %}
+<div class="card">
+  <h5 class="card-header">Comment</h5>
+  <div class="card-body">
+    <h5 class="card-title">{{comment.user}}</h5>
+    <p class="card-text">{{ comment.text }}</p>
+    
+  </div>
+</div>
+{% endfor %}
+
+
+
+
+
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Comment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <form action="{% url 'polls:create_comment' question.id %}"
+        method ="POST" >
+          <input type="textarea" name="comment_text" placeholder="comment">
+          {% csrf_token %}
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+      </div>
+      </div>
+    </div>
+  </div>
+
 {% endblock %}

@@ -21,7 +21,7 @@ class VotesMember(models.Model):
     choice =  models.ForeignKey(Choice,on_delete = models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
 class Comments(models.Model):
-    question = ForeignKey(Question, on_delete = CASCADE)
-    text= CharField(max_length = 300)
-    user = ForeignKey(User, on_delete = models.CASCADE)
-    date =  DateField(auto_now_add)
+    question = models.ForeignKey(Question, on_delete = models.CASCADE)
+    text= models.CharField(max_length = 300)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    date =  models.DateField(auto_now_add = True)
