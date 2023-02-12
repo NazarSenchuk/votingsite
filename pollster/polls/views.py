@@ -2,19 +2,14 @@ from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect , JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-
-from .models import Question, Choice
+from . import forms
+from .models import Question, VotesMember,Choice
 
 # Get questions and display them
 def index(request):
+    form = forms.QuestionForm()
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    context = {'latest_question_list': latest_question_list}
-    if request.method == "POST":
-        username = request.POST.get('username')
-        print(username)
-        user,created = MyUser.objects.get_or_create(username = username)
-        print(user)
-
+    context = {'latest_question_list': latest_question_list, 'form':form}
         
     return render(request, 'polls/index.html', context)
 
@@ -44,7 +39,8 @@ def vote(request, question_id):
             'error_message': "You didn't select a choice.",
         })
     else:
-        selected_choice.votes += 1
+        VotesMember.objects.create(choice =selected_choice,user = request.user)
+        
         selected_choice.save()
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
@@ -62,3 +58,11 @@ def resultsData(request,obj):
     votedata =  [items,votens]
     print(votedata)
     return JsonResponse(votedata ,safe = False  )
+def create_question(request):
+    
+    if request.method == 'POST':
+        form = forms.QuestionForm(request.POST)
+        if form.is_valid :
+            form.save()
+    return redirect('polls:index')
+     

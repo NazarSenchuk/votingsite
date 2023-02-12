@@ -1,6 +1,7 @@
 {% extends 'base.html' %} 
 {% block content %} 
-  <h1 class="text-center mb-3">Poll Questions</h1>
+  <h1 class="text-center mb-3">{{user}}</h1>
+  <a  type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Create question</a>
   {% if latest_question_list %}
     {% for question in latest_question_list %}
       <div class="card mb-3">
@@ -14,4 +15,183 @@
   {% else %}
     <p>No polls available</p>
   {% endif %}
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <form action="{% url 'polls:create_question' %}" method="POST">
+          <div class="tabular inline-related last-related">
+<input type="hidden" name="choice_set-TOTAL_FORMS" value="3" id="id_choice_set-TOTAL_FORMS" autocomplete="off"><input type="hidden" name="choice_set-INITIAL_FORMS" value="0" id="id_choice_set-INITIAL_FORMS"><input type="hidden" name="choice_set-MIN_NUM_FORMS" value="0" id="id_choice_set-MIN_NUM_FORMS" autocomplete="off"><input type="hidden" name="choice_set-MAX_NUM_FORMS" value="1000" id="id_choice_set-MAX_NUM_FORMS" autocomplete="off">
+<fieldset class="module ">
+   
+     <h2>Choices</h2>
+   
+   
+   <table>
+     <thead><tr>
+       <th class="original"></th>
+     
+       <th class="column-choice_text required">Choice text
+       
+       </th>
+     
+       <th class="column-votes required">Votes
+       
+       </th>
+     
+     <th>Delete?</th>
+     </tr></thead>
+
+     <tbody>
+     
+        
+        <tr class="form-row dynamic-choice_set" id="choice_set-0">
+        <td class="original">
+          
+          <input type="hidden" name="choice_set-0-id" id="id_choice_set-0-id">
+          <input type="hidden" name="choice_set-0-question" id="id_choice_set-0-question">
+        </td>
+        
+          
+            
+              <td class="field-choice_text">
+              
+                  
+                  <input type="text" name="choice_set-0-choice_text" class="vTextField" maxlength="200" id="id_choice_set-0-choice_text">
+              
+              </td>
+            
+          
+            
+              <td class="field-votes">
+              
+                  
+                  <input type="number" name="choice_set-0-votes" value="0" class="vIntegerField" id="id_choice_set-0-votes">
+              
+              </td>
+            
+          
+        
+        
+          <td class="delete"><div><a class="inline-deletelink" href="#">Remove</a></div></td>
+        
+        </tr>
+     
+        
+        <tr class="form-row dynamic-choice_set" id="choice_set-1">
+        <td class="original">
+          
+          <input type="hidden" name="choice_set-1-id" id="id_choice_set-1-id">
+          <input type="hidden" name="choice_set-1-question" id="id_choice_set-1-question">
+        </td>
+        
+          
+            
+              <td class="field-choice_text">
+              
+                  
+                  <input type="text" name="choice_set-1-choice_text" class="vTextField" maxlength="200" id="id_choice_set-1-choice_text">
+              
+              </td>
+            
+          
+            
+              <td class="field-votes">
+              
+                  
+                  <input type="number" name="choice_set-1-votes" value="0" class="vIntegerField" id="id_choice_set-1-votes">
+              
+              </td>
+            
+          
+        
+        
+          <td class="delete"><div><a class="inline-deletelink" href="#">Remove</a></div></td>
+        
+        </tr>
+     
+        
+        <tr class="form-row dynamic-choice_set" id="choice_set-2">
+        <td class="original">
+          
+          <input type="hidden" name="choice_set-2-id" id="id_choice_set-2-id">
+          <input type="hidden" name="choice_set-2-question" id="id_choice_set-2-question">
+        </td>
+        
+          
+            
+              <td class="field-choice_text">
+              
+                  
+                  <input type="text" name="choice_set-2-choice_text" class="vTextField" maxlength="200" id="id_choice_set-2-choice_text">
+              
+              </td>
+            
+          
+            
+              <td class="field-votes">
+              
+                  
+                  <input type="number" name="choice_set-2-votes" value="0" class="vIntegerField" id="id_choice_set-2-votes">
+              
+              </td>
+            
+          
+        
+        
+          <td class="delete"><div><a class="inline-deletelink" href="#">Remove</a></div></td>
+        
+        </tr>
+     
+        
+        <tr class="form-row  empty-form" id="choice_set-empty">
+        <td class="original">
+          
+          <input type="hidden" name="choice_set-__prefix__-id" id="id_choice_set-__prefix__-id">
+          <input type="hidden" name="choice_set-__prefix__-question" id="id_choice_set-__prefix__-question">
+        </td>
+        
+          
+            
+              <td class="field-choice_text">
+              
+                  
+                  <input type="text" name="choice_set-__prefix__-choice_text" class="vTextField" maxlength="200" id="id_choice_set-__prefix__-choice_text">
+              
+              </td>
+            
+          
+            
+              <td class="field-votes">
+              
+                  
+                  <input type="number" name="choice_set-__prefix__-votes" value="0" class="vIntegerField" id="id_choice_set-__prefix__-votes">
+              
+              </td>
+            
+          
+        
+        
+          <td class="delete"></td>
+        
+        </tr>
+     
+     <tr class="add-row"><td colspan="4"><a href="#">Add another Choice</a></td></tr></tbody>
+   </table>
+</fieldset>
+  </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

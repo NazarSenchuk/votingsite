@@ -1,13 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import UserManager
-
-class MyUser(AbstractBaseUser):
-    username = models.CharField(max_length = 100,unique= True)
-    
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = []
-    objects = UserManager()
+from django.contrib.auth.models import User
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
@@ -25,5 +19,9 @@ class Choice(models.Model):
 
 class VotesMember(models.Model):
     choice =  models.ForeignKey(Choice,on_delete = models.CASCADE)
-    user = models.ForeignKey(MyUser,on_delete=models.CASCADE)
-
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+class Comments(models.Model):
+    question = ForeignKey(Question, on_delete = CASCADE)
+    text= CharField(max_length = 300)
+    user = ForeignKey(User, on_delete = models.CASCADE)
+    date =  DateField(auto_now_add)

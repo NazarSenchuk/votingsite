@@ -5,13 +5,24 @@
   <div class="card-body">
     <h1>Welcome To Pollster</h1>
     <p>This is an example Django polling app</p>
+    {% if not user.is_authenticated %}
     <form action="" method="POST">
       <input type="text" name="username">
       {% csrf_token %}
-    <button class="btn btn-dark" type="submit">
+          <button class="btn btn-dark" type="submit">
         View Available Polls</a
       </button>
     </form>
+    {% else %}
+    <p>Your name is {{user}}</p>
+    <a  type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Change username</a>
+    <a type= "button"class="btn btn-dark" href ="{% url 'polls:index' %}">
+        View Available Polls</a
+      </button>
+      {% endif %}
   </div>
   </div>
+  
+{% include 'modal.html'%}
+
 {% endblock %}
